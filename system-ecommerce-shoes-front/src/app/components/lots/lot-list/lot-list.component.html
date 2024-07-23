@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Lista de Lotos" [options]="false" blockClass="table-border-style">
+        <a  [routerLink]="['/lots/create']" type="button"  class="btn btn-primary">Nuevo</a>
+        <div class="table-responsive">
+          <table class="table">
+                    <thead>
+                      <tr>
+                        <th>N°</th>
+                        <th>Producto</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Costo Total</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let lot of lots; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ lot.product.proName }}</td>
+                        <td>{{lot.product.category.catName}}</td>
+                        <td>{{lot.lotQuantityProducts}} pares</td>
+                        <td> S/. {{ lot.lotTotalCost }}</td>
+                        <td>
+                          <a [routerLink]="['/lots/edit', lot.id]" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  

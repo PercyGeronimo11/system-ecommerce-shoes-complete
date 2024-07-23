@@ -1,0 +1,134 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card cardTitle="Categorias" [options]="false" blockClass="table-border-style">
+      <div>
+        <button class="btn btn-primary mb-3" (click)="openModal(createContent, null, 'create')">Nuevo</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+              <th>Taco</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let categoria of categories; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ categoria.catName }}</td>
+              <td>{{ categoria.catDescription }}</td>
+              <td>{{ categoria.catHasTaco ? 'Si tiene' : 'No tiene' }}</td>
+              <td>
+                <button type="button" class="btn btn-warning me-2 mb-2"
+                  (click)="openModal(updateContent, categoria, 'update')"><i class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-danger mb-2"
+                  (click)="openModal(deleteContent, categoria,'delete')"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<!-- Modal para eliminación -->
+<ng-template #deleteContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmar</h4>
+  </div>
+  <div class="modal-body">
+    <h4 style="text-align: center;">¿Estás seguro que deseas eliminar la categoria {{ selectedCategory?.catName }}?</h4>
+    <ul>
+      <p style="text-align: center;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: red;"></i>
+      </p>
+    </ul>
+  </div>
+  <div class="modal-footer" style="display: flex; justify-content: center;">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="deleteCategory(selectedCategory.id)">Eliminar</button>
+  </div>
+</ng-template>
+
+<!-- Modal para actualización -->
+<ng-template #updateContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Actualizar Categoria</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="categoryForm">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" formControlName="catName" name="name">
+        <div *ngIf="categoryForm.get('catName')?.touched && categoryForm.get('catName')?.invalid">
+          <small *ngIf="categoryForm.get('catName')?.errors?.['required']" class="text-danger">Nombre es requerido.</small>
+          <small *ngIf="categoryForm.get('catName')?.errors?.['minlength']" class="text-danger">Nombre debe tener al menos 3 caracteres.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripcion</label>
+        <input type="text" class="form-control" id="description" formControlName="catDescription" name="description">
+      </div>
+      <div class="form-group">
+        <label for="status"><b>¿Tiene taco?</b></label><br>
+          <div class="d-inline-flex -ml-3">
+            <label class="form-check-label"style="margin-right: 10px;" for="active">Si</label>
+            <input class="form-check-input" type="radio" id="active" formControlName="catHasTaco" [value]="true"
+              name="catHasTaco">
+          </div>
+          <div class="d-inline-flex -ml-3">
+            <label class="form-check-label"style="margin-left: 40px;margin-right: 10px;" for="inactive">No</label>
+            <input class="form-check-input" type="radio" id="active" formControlName="catHasTaco" [value]="false"
+              name="catHasTaco">
+          </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="updateCategory()">Actualizar</button>
+  </div>
+</ng-template>
+
+<!-- Modal para creación -->
+<ng-template #createContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Nueva Categoria</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="categoryForm">
+      <div class="form-group">
+        <label for="name"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="name" formControlName="catName" name="name">
+        <div *ngIf="categoryForm.get('catName')?.touched && categoryForm.get('catName')?.invalid">
+          <small *ngIf="categoryForm.get('catName')?.errors?.['required']" class="text-danger">Nombre es requerido.</small>
+          <small *ngIf="categoryForm.get('catName')?.errors?.['minlength']" class="text-danger">Nombre debe tener al menos 3 caracteres.</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description"><b>Descripcion</b></label>
+        <input type="text" class="form-control" id="description" formControlName="catDescription" name="description">
+      </div>
+      <label for="status" style="text-align: center;"><b>¿Tiene taco?</b></label>
+      <div class="form-group">
+        <div class="d-inline-flex -ml-3">
+          <label class="form-check-label" style="margin-right: 10px;">Si</label>
+          <input class="form-check-input" type="radio" formControlName="catHasTaco" name="catHasTaco" [value]="false" checked>
+        </div>
+        <div class="d-inline-flex ml-3">
+          <label class="form-check-label" style="margin-left: 40px;margin-right: 10px;">No</label>
+          <input class="form-check-input" type="radio" formControlName="catHasTaco" name="catHasTaco" [value]="true">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="createCategory()">Crear</button>
+  </div>
+</ng-template>
