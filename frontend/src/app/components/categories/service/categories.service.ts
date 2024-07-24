@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environment';
   })
 export class CategoriaService {
 
-    private apiUrl= " http://localhost:8080/api/category";
+    private apiUrl= environment.apiUrl+"/api/category";
 
     constructor(private http: HttpClient) { }
 
