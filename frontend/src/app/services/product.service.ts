@@ -8,7 +8,7 @@ import { ProductCreateReq } from '../models/product.model';
 })
 export class ProductService {
 
-  private apiUrl = 'http://157.230.191.218/product'; // Replace with your actual API URL
+  private apiUrl = 'http://157.230.191.218:8080/product'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) { }
 
