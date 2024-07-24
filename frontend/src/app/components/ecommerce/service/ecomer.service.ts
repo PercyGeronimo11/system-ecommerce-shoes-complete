@@ -10,7 +10,7 @@ import { ProductModel } from 'src/app/models/product.model';
   })
 export class ecommerceService {
 
-  private apiUrl = "http://localhost:8080/api/customer";
+  private apiUrl = "http://157.230.191.218:8080/api/customer";
 
   constructor(private http: HttpClient,     private router: Router
   ) { }

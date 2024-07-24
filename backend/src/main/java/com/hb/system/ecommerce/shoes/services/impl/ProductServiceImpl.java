@@ -134,7 +134,7 @@ public ProductListResp productsByCategory(int idcategory) {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(archivo.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            String fileUrl = "http://127.0.0.1:8080/product/images/" + fileName;
+            String fileUrl = "http://157.230.191.218:8080/product/images/" + fileName;
             return fileUrl;
         } catch (IOException ex) {
             throw new RuntimeException("Error al guardar el archivo: " + ex.getMessage());

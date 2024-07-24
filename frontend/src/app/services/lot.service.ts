@@ -8,7 +8,7 @@ import { LotModel,LotCreateReq, LotModelResp } from '../models/lot.model';
   providedIn: 'root'
 })
 export class LotService {
-  private apiUrl = 'http://127.0.0.1:8080/lot';
+  private apiUrl = 'http://157.230.191.218:8080/lot';
 
   constructor(private http: HttpClient) {}
 

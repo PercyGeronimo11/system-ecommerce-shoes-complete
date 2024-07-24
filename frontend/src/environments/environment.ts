@@ -7,6 +7,6 @@ import packageInfo from '../../package.json';
 export const environment = {
   appVersion: packageInfo.version,
   production: false,
-  apiUrl: 'http://127.0.0.1:8080'
+  apiUrl: 'http://157.230.191.218:8080'
 };
 
